@@ -1,0 +1,195 @@
+body,
+    h2,
+    p {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #e8eaf6;
+        color: #2c3e50;
+        line-height: 1.6;
+    }
+
+    header {
+        background-color: #1a237e;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .logo {
+        width: 200px;
+        height: auto;
+    }
+
+    .contact-btn {
+        background-color: #3949ab;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+    .menu-bar {
+        text-align: center;
+        background-color: #283593;
+        padding: 10px 0;
+    }
+
+    .menu-bar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 20px;
+        font-weight: bold;
+        font-size: large;
+    }
+
+    .dropdown {
+        display: inline-block;
+    }
+
+    .dropbtn {
+        background-color: #283593;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .dropbtn:hover {
+        background-color: #1a237e;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        text-align: left;
+    }
+
+    .dropdown-content a {
+        color: #283593;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-weight: bold;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #1a237e;
+    }
+
+.inmuebles-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 30px;
+    text-align: center;
+}
+
+
+
+
+.inmuebles-section .inmuebles-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 100px; 
+    padding: 20px;
+    justify-items: center; 
+}
+
+
+.inmuebles-section .inmueble-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px; 
+    margin: 0 auto;
+}
+
+
+.inmuebles-section .inmueble-card:hover {
+    transform: translateY(-10px);
+}
+
+
+.inmuebles-section .inmueble-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+
+.inmuebles-section .inmueble-details {
+    padding: 20px;
+}
+
+.inmuebles-section .inmueble-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+}
+
+.inmuebles-section .inmueble-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.inmuebles-section .inmueble-localidad {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+
+.inmuebles-section button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+.inmuebles-section .edit-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+
+.inmuebles-section .edit-button:hover {
+    background-color: #45a049;
+}
+
+.inmuebles-section .delete-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+}
+
+.inmuebles-section .delete-button:hover {
+    background-color: #c0392b;
+}

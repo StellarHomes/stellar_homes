@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Restablecer_Cont.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Restablecer_Contra = () => {
   const [email, setEmail] = useState("");

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Restablecer_Contra.css';
+import './Restablecer_Cont.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { Link } from 'react-router-dom';

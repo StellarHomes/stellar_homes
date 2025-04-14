@@ -141,7 +141,7 @@ const LoginForm = () => {
            
             <button onClick={handleLoginClick} className="buttoninicio">Iniciar Sesión</button>
           </fieldset>
-          <Link to="/ResContraseña" className="restore-password-link">¿Olvidaste tu contraseña?</Link>
+          <Link to="/restablecer" className="restore-password-link">¿Olvidaste tu contraseña?</Link>
         </form>
       )}
 

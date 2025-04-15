@@ -20,7 +20,9 @@
     "sweetalert2": "^11.14.5",
     "url": "^0.11.4",
     "util": "^0.12.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "proxy": "http://localhost"
+
   },
   "scripts": {
     "start": "react-scripts start",

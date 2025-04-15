@@ -9,7 +9,7 @@ import InmobiliariaPerfil from './components/InmobiliariaPerfil';
 import Publicar from './components/Publicar';  
 import InmueblesList from './components/InmueblesList';
 import EditarInmueble from './components/EditarInmueble'; 
-import IfonInmueble from './components/IfoInmueble';
+import IfoInmueble from './components/IfoInmueble';
 import Restablecer_Contra from './components/Restablecer_Contra';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
           <Route path="/publicar" element={<Publicar />} />
           <Route path="/inmuebles" element={<InmueblesList />} />
           <Route path="/editarInmueble/:idInmueble" element={<EditarInmueble />} />
-          <Route path="/ifoInmueble/:idInmueble" element={<IfonInmueble />} />
+          <Route path="/ifoInmueble/:idInmueble" element={<IfoInmueble />} />
           <Route path="/restablecer" element={<Restablecer_Contra />} />
         </Routes>
       </div>

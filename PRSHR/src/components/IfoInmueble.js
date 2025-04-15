@@ -8,7 +8,7 @@ const PropertyDetail = () => {
     useEffect(() => {
         const fetchInmueble = async () => {
             try {
-                const response = await fetch(`/get_inmueble.php?id=${id}`);
+                const response = await fetch(`http://localhost/API/getInmuebleById.php?idInmueble=${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     setInmueble(data);
@@ -34,10 +34,10 @@ const PropertyDetail = () => {
                 <div className="columns">
                     <div className="column is-half">
                         <figure className="image">
-                            <img
-                                src={inmueble.imagen ? `/uploads/${inmueble.imagen}` : '/img/diseno-de-casas-modernas-1_0.jpg'}
+                        <img
+                             src={ inmueble.imagen ? `/uploads/${inmueble.imagen}` : '/img/diseno-de-casas-modernas-1_0.jpg'}
                                 alt="Imagen del inmueble"
-                            />
+                        />
                         </figure>
                     </div>
                     <div className="column is-half">
@@ -45,7 +45,7 @@ const PropertyDetail = () => {
                             <p><strong>Descripción:</strong> {inmueble.Descripcion}</p>
                             <p><strong>Localidad:</strong> {inmueble.localidad}</p>
                             <p><strong>Dirección:</strong> {inmueble.Direccion}</p>
-                            <p><strong>Precio:</strong> ${inmueble.precio.toLocaleString()}</p>
+                            <p><strong>Precio:</strong> {inmueble.precio !== undefined? `$${Number(inmueble.precio).toLocaleString()}`: "No disponible"}</p>
                             <p><strong>Fecha de Publicación:</strong> {inmueble.FechaPubli}</p>
                             <p><strong>Estado:</strong> {inmueble.estado_desc}</p>
                             <Link to={`/contacto/${inmueble.idInmueble}`} className="button is-warning mt-3">Contacto</Link>

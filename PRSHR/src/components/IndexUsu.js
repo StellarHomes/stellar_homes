@@ -18,7 +18,7 @@ const InmuebleCard = ({ inmueble, onDelete, navigate }) => {
         <p className="inmueble-localidad">{inmueble.localidad}</p>
         <p className="inmueble-precio">{inmueble.precio}</p>
         <p className="inmueble-fecha">{inmueble.FechaPubli}</p>
-        <button onClick={() => navigate('/IfonInmueble.js')} className="delete-button">
+        <button onClick={() => navigate((`/IfoInmueble/${inmueble.idInmueble}`))} className="delete-button">
           Más información
         </button>
       </div>
@@ -93,38 +93,6 @@ const InmueblesList = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: '¡Esta acción no se puede deshacer!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#e74c3c',
-      cancelButtonColor: '#777',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const response = await fetch('http://localhost/API/deleteInmueble.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ idInmueble: id })
-          });
-          const data = await response.json();
-          if (data.message === 'Inmueble eliminado con éxito') {
-            setInmuebles((prevInmuebles) => prevInmuebles.filter(inmueble => inmueble.idInmueble !== id));
-            Swal.fire('Eliminado', 'El inmueble fue eliminado con éxito.', 'success');
-          }
-        } catch (error) {
-          console.error('Error al eliminar inmueble:', error);
-        }
-      }
-    });
-  };
-
   const handleSearchChange = (e) => {
     setSearchData({
       ...searchData,
@@ -197,7 +165,7 @@ const InmueblesList = () => {
         <div className="inmuebles-list">
           {inmuebles.length > 0 ? (
             inmuebles.map((inmueble) => (
-              <InmuebleCard key={inmueble.idInmueble} inmueble={inmueble} onDelete={handleDelete} navigate={navigate} />
+              <InmuebleCard key={inmueble.idInmueble} inmueble={inmueble} navigate={navigate} />
             ))
           ) : (
             <p>No hay inmuebles disponibles.</p>

@@ -52,7 +52,7 @@ const Restablecer_Contra = () => {
               required
             />
           </div>
-          <button type="submit">Enviar correo de recuperación</button>
+          <button type="submit">Enviar correo</button>
         </form>
       </section>
 

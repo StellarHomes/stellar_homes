@@ -45,7 +45,7 @@ const PropertyDetail = () => {
                             <p><strong>Descripción:</strong> {inmueble.Descripcion}</p>
                             <p><strong>Localidad:</strong> {inmueble.localidad}</p>
                             <p><strong>Dirección:</strong> {inmueble.Direccion}</p>
-                            <p><strong>Precio:</strong> {inmueble.precio !== undefined? `$${Number(inmueble.precio).toLocaleString()}`: "No disponible"}</p>
+                            <p><strong>Precio:</strong> {inmueble.precio ? `$${inmueble.precio.toLocaleString()}` : 'No disponible'}</p>
                             <p><strong>Fecha de Publicación:</strong> {inmueble.FechaPubli}</p>
                             <p><strong>Estado:</strong> {inmueble.estado_desc}</p>
                             <Link to={`/contacto/${inmueble.idInmueble}`} className="button is-warning mt-3">Contacto</Link>

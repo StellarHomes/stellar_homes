@@ -9,11 +9,13 @@ const PropertyDetail = () => {
         const fetchInmueble = async () => {
             try {
                 const response = await fetch(`http://localhost/API/getInmuebleById.php?idInmueble=${id}`);
-                if (response.ok) {
                     const data = await response.json();
-                    setInmueble(data);
+                    console.log("🔍 DATOS DEL INMUEBLE:", data);
+                if (data.error){
+                    console.error("Error en datos", data.error);
+                    setInmueble(null);
                 } else {
-                    console.error('Error al obtener el inmueble');
+                    setInmueble(data);
                 }
             } catch (error) {
                 console.error('Error de red:', error);
@@ -35,18 +37,17 @@ const PropertyDetail = () => {
                     <div className="column is-half">
                         <figure className="image">
                         <img
-                             src={ inmueble.imagen ? `/uploads/${inmueble.imagen}` : '/img/diseno-de-casas-modernas-1_0.jpg'}
-                                alt="Imagen del inmueble"
+                             src={ inmueble.imagen?.replace(/\\/g,'')} alt="Imagen del inmueble"
                         />
                         </figure>
                     </div>
                     <div className="column is-half">
                         <div className="content">
                             <p><strong>Descripción:</strong> {inmueble.Descripcion}</p>
-                            <p><strong>Localidad:</strong> {inmueble.localidad}</p>
+                            <p><strong>Localidad:</strong> {inmueble.Localidad}</p>
                             <p><strong>Dirección:</strong> {inmueble.Direccion}</p>
                             <p><strong>Precio:</strong> {inmueble.precio ? `$${inmueble.precio.toLocaleString()}` : 'No disponible'}</p>
-                            <p><strong>Fecha de Publicación:</strong> {inmueble.FechaPubli}</p>
+                            <p><strong>Fecha de Publicación:</strong> {inmueble.FechaPubli ? new Date(inmueble.FechaPubli).toLocaleDateString('es-CO') : 'No disponible'}                            </p>
                             <p><strong>Estado:</strong> {inmueble.estado_desc}</p>
                             <Link to={`/contacto/${inmueble.idInmueble}`} className="button is-warning mt-3">Contacto</Link>
                         </div>

@@ -18,7 +18,7 @@ const InmuebleCard = ({ inmueble, onDelete, navigate }) => {
         <p className="inmueble-localidad">{inmueble.localidad}</p>
         <p className="inmueble-precio">{inmueble.precio}</p>
         <p className="inmueble-fecha">{inmueble.FechaPubli}</p>
-        <button onClick={() => navigate('/IfonInmueble.js')} className="delete-button">
+        <button onClick={() => navigate('/login')} className="delete-button">
           Más información
         </button>
       </div>

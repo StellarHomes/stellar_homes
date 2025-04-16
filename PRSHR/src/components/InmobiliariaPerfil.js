@@ -143,7 +143,7 @@ const InmobiliariaPerfil = () => {
             </div>
             
             <button type="submit" className="submit-button">
-              <i className="fas fa-save"></i> Guardar Cambios
+              <i className="fas fa-save">Guardar Cambios</i>
             </button>
           </form>
         </div>

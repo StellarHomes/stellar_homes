@@ -166,7 +166,7 @@ const InmueblesList = () => {
       </header>
 
       <div className="menu-bar">
-        <a href="./inmueblesIN.php"><button className="volverindex">Inmuebles</button></a>
+      <Link to="/inmuebles"><button className="volverindex">Inmuebles</button></Link>
         <Link to="/login"><button className="volverindex">Iniciar Sesión</button></Link>
       </div>
 
@@ -204,7 +204,7 @@ const InmueblesList = () => {
 
       <footer>
         <nav>
-          <a href="./inmueblesIN.php"><button className="volverindex">Inmuebles</button></a>
+        <Link to="/inmuebles"><button className="volverindex">Inmuebles</button></Link>
           <Link to="/login"><button className="volverindex">Iniciar Sesión</button></Link>
         </nav>
         <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />

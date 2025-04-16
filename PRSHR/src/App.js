@@ -26,7 +26,7 @@ function App() {
           <Route path="/publicar" element={<Publicar />} />
           <Route path="/inmuebles" element={<InmueblesList />} />
           <Route path="/editarInmueble/:idInmueble" element={<EditarInmueble />} />
-          <Route path="/ifoInmueble/:idInmueble" element={<IfoInmueble />} />
+          <Route path="/IfoInmueble/:id" element={<IfoInmueble />} />
           <Route path="/restablecer" element={<Restablecer_Contra />} />
         </Routes>
       </div>

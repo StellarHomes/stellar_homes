@@ -25,9 +25,8 @@ const InmuebleCard = ({ inmueble, onDelete, navigate }) => {
     </div>
   );
 };
-
-
 const SearchForm = ({ searchData, handleChange, handleSubmit }) => {
+  
   return (
     <section className="search">
       <h2>Buscar Inmueble</h2>
@@ -37,7 +36,6 @@ const SearchForm = ({ searchData, handleChange, handleSubmit }) => {
           <select id="tipo" name="tipo" value={searchData.tipo} onChange={handleChange}>
             <option value="casa">Casa</option>
             <option value="apartamento">Apartamento</option>
-            <option value="oficina">Oficina</option>
           </select>
         </div>
         <div className="form-group">

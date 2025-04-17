@@ -135,8 +135,9 @@ const InmueblesList = () => {
             </header>
 
             <div className="menu-bar">
-                <a href="/inmuebles"><button className="volverindex">Inmuebles</button></a>
                 <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
+                <a href="/perfilUsu"><button className="volverindex">Perfil</button></a>
+                
             </div>
 
         

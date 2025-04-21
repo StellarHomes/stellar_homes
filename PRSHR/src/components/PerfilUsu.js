@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 
 const PerfilUsu = () => {
-    const [user, setUser] = useState({
-        nombre: 'Juan Pérez',
-        email: 'juan.perez@example.com',
-        telefono: '123-456-7890',
-    });
+
 
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState(user);

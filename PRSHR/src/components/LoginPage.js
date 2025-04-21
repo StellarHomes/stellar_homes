@@ -70,6 +70,11 @@ const LoginForm = () => {
         setUserId(result.userId);
 
         if (loginType === "user") {
+          localStorage.setItem('usuario', JSON.stringify({
+            idCliente: result.userId,
+            nombre: result.user_name,
+            email: result.user_email,
+          }));
           Swal.fire({
             icon: 'success',
             title: 'Inicio de sesión exitoso',

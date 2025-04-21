@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import './InmobiliariaPerfil.css'; // Archivo CSS para estilos
+import './InmobiliariaPerfil.css'; 
 
 const InmobiliariaPerfil = () => {
   const [inmobiliariaData, setInmobiliariaData] = useState({

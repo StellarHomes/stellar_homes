@@ -69,6 +69,8 @@ const InmueblesList = () => {
     zona: '',
     precio: ''
   });
+  const [usuarioData, setUsuarioData] = useState(null); 
+  const [loadingUser, setLoadingUser] = useState(true);
   const [index, setIndex] = useState(0);
   const navigate = useNavigate(); 
 
@@ -78,6 +80,36 @@ const InmueblesList = () => {
     "/luxury-beach-house-sea-view-600nw-2313357873.webp"
   ];
 
+
+    useEffect(() => {
+      const fetchUserData = () => {
+        const usuarioGuardado = JSON.parse(localStorage.getItem('usuario'));
+  
+        if (!usuarioGuardado || !usuarioGuardado.idCliente) {
+          Swal.fire('Error', 'Usuario no autenticado', 'error');
+          navigate('/login');
+          return;
+        }
+  
+        fetch(`http://localhost/API/cliente.php?idCliente=${usuarioGuardado.idCliente}`)
+          .then((response) => {
+            if (!response.ok) throw new Error('Error al obtener los datos');
+            return response.json();
+          })
+          .then((data) => {
+            if (data.error) throw new Error(data.error);
+            setUsuarioData(data);
+            setLoadingUser(false);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            setLoadingUser(false);
+          });
+      };
+  
+      fetchInmuebles();
+      fetchUserData();
+    }, []);
   useEffect(() => {
     fetchInmuebles();
   }, []);
@@ -130,14 +162,19 @@ const InmueblesList = () => {
     return (
         <div>
            
-            <header>
-                <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
-            </header>
+           <header className="main-header">
+  <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
+  {usuarioData && (
+    <span className="user-welcome">
+      Bienvenido, <strong>{usuarioData.Nombre} {usuarioData.Apellido}</strong>
+    </span>
+  )}
+</header>
+
 
             <div className="menu-bar">
                 <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
                 <a href="/perfilUsu"><button className="volverindex">Perfil</button></a>
-                
             </div>
 
         

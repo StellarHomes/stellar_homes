@@ -10,20 +10,21 @@ body,
     }
 
     header {
-        background-color: #1a237e;
-        color: white;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding: 1px;
+        justify-content: space-between;
+        background-color: #1a237e; /* azul profundo */
+        padding: 1rem 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        color: white;
         position: sticky;
         top: 0;
-        z-index: 1000;
+        z-index: 10;
     }
 
     .logo {
         width: 200px;
-        height: auto;
+        object-fit:cover;
     }
 
     .contact-btn {
@@ -193,7 +194,15 @@ body,
 .inmuebles-section .delete-button:hover {
     background-color: #c0392b;
 }
-
+.user-welcome {
+    margin-left: 20px;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    font-size: 0.9rem;
+  }
 
    
     

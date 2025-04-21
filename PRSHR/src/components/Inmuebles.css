@@ -194,7 +194,7 @@ body,
 .inmuebles-section .delete-button:hover {
     background-color: #c0392b;
 }
-.user-welcome {
+.usuario-nombre {
     margin-left: 20px;
     color: white;
     font-weight: bold;
@@ -204,5 +204,7 @@ body,
     font-size: 0.9rem;
   }
 
-   
-    
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  

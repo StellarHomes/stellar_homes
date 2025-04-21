@@ -165,7 +165,7 @@ const InmueblesList = () => {
            <header className="main-header">
   <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
   {usuarioData && (
-    <span className="user-welcome">
+    <span className="usuario-nombre">
       Bienvenido, <strong>{usuarioData.Nombre} {usuarioData.Apellido}</strong>
     </span>
   )}

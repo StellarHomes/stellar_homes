@@ -89,7 +89,46 @@ const PerfilUsu = () => {
         Swal.fire('Error', 'Hubo un problema al actualizar', 'error');
         console.error('Error:', error);
       });
-  };
+      };
+      const handleDelete = async () => {
+        Swal.fire({
+          title: '¿Estás seguro?',
+          text: '¡Esta acción eliminará tu cuenta!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#e74c3c',
+          cancelButtonColor: '#777',
+          confirmButtonText: 'Sí, eliminar',
+          cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              const response = await fetch('http://localhost/API/DeleteUsu.php', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ idCliente: usuarioData.idCliente }),
+              });
+      
+              const data = await response.json();
+      
+              if (data.success) {
+                Swal.fire('Cuenta eliminada', 'Tu cuenta fue eliminada con éxito.', 'success').then(() => {
+                  localStorage.removeItem('usuario');
+                  navigate('/');
+                });
+              } else {
+                Swal.fire('Error', data.message || 'No se pudo eliminar la cuenta', 'error');
+              }
+            } catch (error) {
+              console.error('Error al eliminar usuario:', error);
+              Swal.fire('Error', 'Hubo un problema al eliminar la cuenta', 'error');
+            }
+          }
+        });
+      };
+      
 
   if (loading) return <p className="text-center mt-10 text-gray-500">Cargando datos del usuario...</p>;
 
@@ -155,14 +194,18 @@ const PerfilUsu = () => {
           </button>
         </form>
         <div className='flex justify-center mt-4'>
-            <p className='bg-white'> O SI PREFIERES </p>
-        </div>
-        <div className='flex justify-center mt-4'>
-            <button type="delete"
-             className="py-1.5 bg-[#d50a2e] hover:bg-[#1a237e] text-white font-semibold py-2 px-4 rounded-lg transition duration-300">
-             eliminar cuenta
-            </button>    
-      </div>
+  <p className='text-sm text-gray-600'>O SI PREFIERES</p>
+</div>
+
+<div className='flex justify-center mt-2'>
+  <button
+    type="button"
+    onClick={handleDelete}
+    className="bg-[#d50a2e] hover:bg-[#1a237e] text-white font-semibold py-2 px-6 rounded-lg transition duration-300 text-sm"
+  >
+    Eliminar cuenta
+  </button>
+</div>
       </div>
 
     </main>

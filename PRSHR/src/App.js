@@ -10,7 +10,7 @@ import Publicar from './components/Publicar';
 import InmueblesList from './components/InmueblesList';
 import InmueblesListUsu from './components/InmueblesListUsu';
 import EditarInmueble from './components/EditarInmueble'; 
-import IfonInmueble from './components/IfoInmueble';
+import InfoInmueble from "./components/InfoInmueble";
 import Restablecer_Contra from './components/Restablecer_Contra';
 import Inmueble from './components/Inmuebles';
 
@@ -29,7 +29,7 @@ function App() {
           <Route path="/inmuebles" element={<InmueblesList />} />
           <Route path="/inmueble" element={<Inmueble />} />
           <Route path="/editarInmueble/:idInmueble" element={<EditarInmueble />} />
-          <Route path="/ifoInmueble/:idInmueble" element={<IfonInmueble />} />
+          <Route path="/inmueble/:id" element={<InfoInmueble />} />
           <Route path="/restablecer" element={<Restablecer_Contra />} />
           <Route path="/inmueblesList" element={<InmueblesListUsu />} />
         </Routes>

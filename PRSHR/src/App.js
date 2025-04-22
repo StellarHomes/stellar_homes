@@ -8,6 +8,7 @@ import IndexUsu from './components/IndexUsu';
 import InmobiliariaPerfil from './components/InmobiliariaPerfil';
 import Publicar from './components/Publicar';  
 import InmueblesList from './components/InmueblesList';
+import InmueblesListUsu from './components/InmueblesListUsu';
 import EditarInmueble from './components/EditarInmueble'; 
 import IfonInmueble from './components/IfoInmueble';
 import Restablecer_Contra from './components/Restablecer_Contra';
@@ -30,6 +31,7 @@ function App() {
           <Route path="/editarInmueble/:idInmueble" element={<EditarInmueble />} />
           <Route path="/ifoInmueble/:idInmueble" element={<IfonInmueble />} />
           <Route path="/restablecer" element={<Restablecer_Contra />} />
+          <Route path="/inmueblesList" element={<InmueblesListUsu />} />
         </Routes>
       </div>
     </Router>

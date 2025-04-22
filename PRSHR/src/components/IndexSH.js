@@ -3,8 +3,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Inmuebles.css';
 import Swal from 'sweetalert2';
 
+const InmuebleCard = ({ inmueble }) => {
+  const navigate = useNavigate();
 
-const InmuebleCard = ({ inmueble, onDelete, navigate }) => {
+  const handleInfoClick = () => {
+    Swal.fire({
+      title: '¡Atención!',
+      text: 'Debes estar registrado para ver más información del inmueble.',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Registrarse',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#aaa'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/registerCli'); 
+      }
+    });
+  };
+
   return (
     <div className="inmueble-card" key={inmueble.idInmueble}>
       <img 
@@ -18,14 +36,13 @@ const InmuebleCard = ({ inmueble, onDelete, navigate }) => {
         <p className="inmueble-localidad">{inmueble.localidad}</p>
         <p className="inmueble-precio">{inmueble.precio}</p>
         <p className="inmueble-fecha">{inmueble.FechaPubli}</p>
-        <button onClick={() => navigate('/IfonInmueble.js')} className="delete-button">
+        <button onClick={handleInfoClick} className="delete-button">
           Más información
         </button>
       </div>
     </div>
   );
 };
-
 
 const SearchForm = ({ searchData, handleChange, handleSubmit }) => {
   return (
@@ -70,7 +87,6 @@ const InmueblesList = () => {
     precio: ''
   });
   const [index, setIndex] = useState(0);
-  const navigate = useNavigate(); 
 
   const slides = [
     "/diseno-de-casas-modernas-1_0.jpg",
@@ -86,7 +102,6 @@ const InmueblesList = () => {
     try {
       const response = await fetch('http://localhost/API/getInmuebles.php');
       const data = await response.json();
-      console.log('Datos recibidos:', data);
       setInmuebles(data);
     } catch (error) {
       console.error('Error al obtener los inmuebles:', error);
@@ -115,7 +130,7 @@ const InmueblesList = () => {
           });
           const data = await response.json();
           if (data.message === 'Inmueble eliminado con éxito') {
-            setInmuebles((prevInmuebles) => prevInmuebles.filter(inmueble => inmueble.idInmueble !== id));
+            setInmuebles((prev) => prev.filter(inmueble => inmueble.idInmueble !== id));
             Swal.fire('Eliminado', 'El inmueble fue eliminado con éxito.', 'success');
           }
         } catch (error) {
@@ -166,7 +181,7 @@ const InmueblesList = () => {
       </header>
 
       <div className="menu-bar">
-        <a href="./inmueblesIN.php"><button className="volverindex">Inmuebles</button></a>
+        <Link to="/inmueble"><button className="volverindex">Inmuebles</button></Link>
         <Link to="/login"><button className="volverindex">Iniciar Sesión</button></Link>
       </div>
 
@@ -188,13 +203,17 @@ const InmueblesList = () => {
         </div>
       </section>
 
-      <SearchForm searchData={searchData} handleChange={handleSearchChange} handleSubmit={handleSearchSubmit} />
+      <SearchForm 
+        searchData={searchData} 
+        handleChange={handleSearchChange} 
+        handleSubmit={handleSearchSubmit} 
+      />
 
       <section className="inmuebles-section">
         <div className="inmuebles-list">
           {inmuebles.length > 0 ? (
             inmuebles.map((inmueble) => (
-              <InmuebleCard key={inmueble.idInmueble} inmueble={inmueble} onDelete={handleDelete} navigate={navigate} />
+              <InmuebleCard key={inmueble.idInmueble} inmueble={inmueble} />
             ))
           ) : (
             <p>No hay inmuebles disponibles.</p>
@@ -204,7 +223,7 @@ const InmueblesList = () => {
 
       <footer>
         <nav>
-          <a href="./inmueblesIN.php"><button className="volverindex">Inmuebles</button></a>
+          <a href="./inmuebles.php"><button className="volverindex">Inmuebles</button></a>
           <Link to="/login"><button className="volverindex">Iniciar Sesión</button></Link>
         </nav>
         <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />

@@ -43,9 +43,7 @@ const InmueblesListUsu = () => {
                   <p className="inmueble-localidad">{inmueble.localidad}</p>
                   <p className="inmueble-precio">{inmueble.precio}</p>
                   <p className="inmueble-fecha">{inmueble.FechaPubli}</p>
-                  <button onClick={() => navigate(`/inmueble/${inmueble.idInmueble}`)}>
-  Más información
-</button>
+                  <button onClick={() => navigate(`/inmueble/${inmueble.idInmueble}`)}> Más información </button>
 
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import "./InfoInmueble.css"; // Asegúrate de importar los estilos
+import "./InfoInmueble.css"; 
 
 const InfoInmueble = () => {
   const { id } = useParams();
@@ -29,22 +29,20 @@ const InfoInmueble = () => {
 
   return (
     <div>
-      {/* Encabezado */}
       <header className="header">
         <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
         <h1 className="title">Detalles del Inmueble</h1>
         <Link to="/inmueblesList" className="button">Volver</Link>
       </header>
 
-      {/* Contenido principal */}
+
       <section className="info-inmueble">
         <div className="inmueble-layout">
-          {/* Imagen a la izquierda */}
+
           <div className="inmueble-imagen-container">
             <img src={inmueble.imagen} alt={inmueble.Nombre} className="inmueble-imagen" />
           </div>
 
-          {/* Información a la derecha */}
           <div className="inmueble-detalles">
             <h2 className="inmueble-titulo">{inmueble.Nombre}</h2>
             <p><strong>ID del Inmueble:</strong> {inmueble.idInmueble}</p>
@@ -62,7 +60,6 @@ const InfoInmueble = () => {
         </div>
       </section>
 
-      {/* Footer */}
       <footer>
         <nav>
           <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>

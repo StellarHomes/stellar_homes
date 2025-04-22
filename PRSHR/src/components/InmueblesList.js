@@ -91,7 +91,7 @@ const InmueblesList = () => {
           {inmuebles.length > 0 ? (
             inmuebles.map((inmueble) => (
               <div className="inmueble-card" key={inmueble.idInmueble}>
-                {/* Usar la URL almacenada en la base de datos */}
+
                 <img 
                   src={inmueble.imagen || 'default-image.jpg'} 
                   alt={inmueble.Nombre} 

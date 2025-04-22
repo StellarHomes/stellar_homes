@@ -167,7 +167,7 @@ const InmueblesList = () => {
             </header>
 
             <div className="menu-bar">
-                <a href="./inmueblesIN.php"><button className="volverindex">Inmuebles</button></a>
+                <Link to="/InmueblesList"><button className="volverindex">Inmuebles</button></Link>
                 <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
             </div>
 

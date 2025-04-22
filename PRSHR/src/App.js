@@ -11,6 +11,7 @@ import InmueblesList from './components/InmueblesList';
 import EditarInmueble from './components/EditarInmueble'; 
 import IfonInmueble from './components/IfoInmueble';
 import Restablecer_Contra from './components/Restablecer_Contra';
+import Inmueble from './components/Inmuebles';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/perfil" element={<InmobiliariaPerfil />} />
           <Route path="/publicar" element={<Publicar />} />
           <Route path="/inmuebles" element={<InmueblesList />} />
+          <Route path="/inmueble" element={<Inmueble />} />
           <Route path="/editarInmueble/:idInmueble" element={<EditarInmueble />} />
           <Route path="/ifoInmueble/:idInmueble" element={<IfonInmueble />} />
           <Route path="/restablecer" element={<Restablecer_Contra />} />

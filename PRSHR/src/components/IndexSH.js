@@ -223,7 +223,7 @@ const InmueblesList = () => {
 
       <footer>
         <nav>
-          <a href="./inmuebles.php"><button className="volverindex">Inmuebles</button></a>
+        <Link to="/inmueble"><button className="volverindex">Inmuebles</button></Link>
           <Link to="/login"><button className="volverindex">Iniciar Sesión</button></Link>
         </nav>
         <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />

@@ -207,7 +207,7 @@ const InmueblesList = () => {
 
             <footer>
                 <nav>
-                    <a href="./inmueblesIN.php"><button className="volverindex">Inmuebles</button></a>
+                    <Link to="/InmueblesList"><button className="volverindex">Inmuebles</button></Link>
                     <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
                 </nav>
                 <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />

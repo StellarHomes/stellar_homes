@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Inmuebles.css';
 import Swal from 'sweetalert2';
 
+const InmuebleCard = ({ inmueble }) => {
+  const navigate = useNavigate(); 
 
-const InmuebleCard = ({ inmueble, onDelete, navigate }) => {
   return (
     <div className="inmueble-card" key={inmueble.idInmueble}>
       <img 
@@ -18,14 +19,13 @@ const InmuebleCard = ({ inmueble, onDelete, navigate }) => {
         <p className="inmueble-localidad">{inmueble.localidad}</p>
         <p className="inmueble-precio">{inmueble.precio}</p>
         <p className="inmueble-fecha">{inmueble.FechaPubli}</p>
-        <button onClick={() => navigate('/IfonInmueble.js')} className="delete-button">
+        <button onClick={() => navigate(`/inmueble/${inmueble.idInmueble}`)}>
           Más información
         </button>
       </div>
     </div>
   );
 };
-
 
 const SearchForm = ({ searchData, handleChange, handleSubmit }) => {
   return (
@@ -159,21 +159,18 @@ const InmueblesList = () => {
   const nextSlide = () => setIndex((index + 1) % slides.length);
   const prevSlide = () => setIndex((index - 1 + slides.length) % slides.length);
 
-    return (
-        <div>
-           
-            <header>
-                <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
-            </header>
+  return (
+    <div>
+      <header>
+        <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
+      </header>
 
-            <div className="menu-bar">
-                <Link to="/InmueblesList"><button className="volverindex">Inmuebles</button></Link>
-                <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
-            </div>
+      <div className="menu-bar">
+        <Link to="/InmueblesList"><button className="volverindex">Inmuebles</button></Link>
+        <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
+      </div>
 
-        
-            
-            <section className="carousel">
+      <section className="carousel">
         <div className="carousel-container" style={{ transform: `translateX(-${index * 100}%)` }}>
           {slides.map((src, i) => (
             <div key={i} className="carousel-slide">
@@ -191,13 +188,17 @@ const InmueblesList = () => {
         </div>
       </section>
 
-      <SearchForm searchData={searchData} handleChange={handleSearchChange} handleSubmit={handleSearchSubmit} />
+      <SearchForm 
+        searchData={searchData} 
+        handleChange={handleSearchChange} 
+        handleSubmit={handleSearchSubmit} 
+      />
 
       <section className="inmuebles-section">
         <div className="inmuebles-list">
           {inmuebles.length > 0 ? (
-            inmuebles.map((inmueble) => (
-              <InmuebleCard key={inmueble.idInmueble} inmueble={inmueble} onDelete={handleDelete} navigate={navigate} />
+            inmuebles.slice(0, 3).map((inmueble) => (
+              <InmuebleCard key={inmueble.idInmueble} inmueble={inmueble} />
             ))
           ) : (
             <p>No hay inmuebles disponibles.</p>
@@ -205,16 +206,16 @@ const InmueblesList = () => {
         </div>
       </section>
 
-            <footer>
-                <nav>
-                    <Link to="/InmueblesList"><button className="volverindex">Inmuebles</button></Link>
-                    <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
-                </nav>
-                <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />
-                <p>&copy; 2024 Inmobiliaria. Todos los derechos reservados.</p>
-            </footer>
-        </div>
-    );
-}
+      <footer>
+        <nav>
+          <Link to="/InmueblesList"><button className="volverindex">Inmuebles</button></Link>
+          <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
+        </nav>
+        <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />
+        <p>&copy; 2024 Inmobiliaria. Todos los derechos reservados.</p>
+      </footer>
+    </div>
+  );
+};
 
 export default InmueblesList;

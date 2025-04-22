@@ -212,9 +212,10 @@ const InmueblesList = () => {
       <section className="inmuebles-section">
         <div className="inmuebles-list">
           {inmuebles.length > 0 ? (
-            inmuebles.map((inmueble) => (
+            inmuebles.slice(0, 3).map((inmueble) => (
               <InmuebleCard key={inmueble.idInmueble} inmueble={inmueble} />
             ))
+            
           ) : (
             <p>No hay inmuebles disponibles.</p>
           )}

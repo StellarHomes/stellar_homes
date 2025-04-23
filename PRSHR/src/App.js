@@ -27,7 +27,7 @@ function App() {
           <Route path="/perfil" element={<InmobiliariaPerfil />} />
           <Route path="/publicar" element={<Publicar />} />
           <Route path="/inmuebles" element={<InmueblesList />} />
-          <Route path="/inmueble" element={<Inmueble />} />
+          <Route path="/inmueble" element={<InmueblesListUsu />} />
           <Route path="/editarInmueble/:idInmueble" element={<EditarInmueble />} />
           <Route path="/IfoInmueble/:id" element={<IfoInmueble />} />
           <Route path="/restablecer" element={<Restablecer_Contra />} />

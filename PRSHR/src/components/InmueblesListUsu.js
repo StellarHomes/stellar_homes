@@ -24,7 +24,7 @@ const InmueblesListUsu = () => {
       <header className="header">
         <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
           <h1 className="title">Inmuebles</h1>
-          <Link to="/IndexUsu" className="button">Volver</Link>
+          <Link to="/" className="button">Volver</Link>
       </header>
       
       <section className="inmuebles-section">
@@ -43,7 +43,7 @@ const InmueblesListUsu = () => {
                   <p className="inmueble-localidad">{inmueble.localidad}</p>
                   <p className="inmueble-precio">{inmueble.precio}</p>
                   <p className="inmueble-fecha">{inmueble.FechaPubli}</p>
-                  <button onClick={() => navigate(`/inmueble/${inmueble.idInmueble}`)}> Más información </button>
+                  <button onClick={() => navigate(`/IfoInmueble/${inmueble.idInmueble}`)}> Más información </button>
 
                 </div>
               </div>

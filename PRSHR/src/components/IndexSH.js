@@ -180,7 +180,7 @@ const InmueblesList = () => {
       </header>
 
       <div className="menu-bar">
-      <Link to="/inmuebles"><button className="volverindex">Inmuebles</button></Link>
+      <Link to="/inmueble"><button className="volverindex">Inmuebles</button></Link>
         <Link to="/login"><button className="volverindex">Iniciar Sesión</button></Link>
       </div>
 

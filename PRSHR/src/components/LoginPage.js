@@ -78,7 +78,7 @@ const LoginForm = () => {
           Swal.fire({
             icon: 'success',
             title: 'Inicio de sesión exitoso',
-            html: `Tu ID es: <span class="welcome-id">${result.userId}</span>`,
+       
           });
 
           navigate("/indexUsu"); 

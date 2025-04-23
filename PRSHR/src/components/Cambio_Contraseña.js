@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import './Retablecer_Cont.css'; 
 
-const CambioContraseña = () => {
+const Cambio_Contraseña = () => {
   const [params] = useSearchParams();
   const codigo = params.get('codigo');
   const navigate = useNavigate();
@@ -27,9 +26,14 @@ const CambioContraseña = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost/API/cambio_contraseña.php', {
+      const response = await axios.post('http://localhost/API/Cambio_Contra.php', {
         codigo,
-        ...formData
+        ...formData},
+        {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          
       });
 
       if (response.data.success) {
@@ -83,4 +87,4 @@ const CambioContraseña = () => {
   );
 };
 
-export default CambioContraseña;
+export default Cambio_Contraseña;

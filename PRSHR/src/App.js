@@ -12,7 +12,7 @@ import InmueblesListUsu from './components/InmueblesListUsu';
 import EditarInmueble from './components/EditarInmueble'; 
 import IfoInmueble from './components/IfoInmueble';
 import Restablecer_Contra from './components/Restablecer_Contra';
-import cambio_contraseña from './components/Cambio_Contraseña'; 
+import Cambio_Contraseña from './components/Cambio_Contraseña'; 
 import PerfilUsu from './components/PerfilUsu';
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
           <Route path="/editarInmueble/:idInmueble" element={<EditarInmueble />} />
           <Route path="/IfoInmueble/:id" element={<IfoInmueble />} />
           <Route path="/restablecer" element={<Restablecer_Contra />} />
-          <Route path="/cambioContra" element={<cambio_contraseña />} />
+          <Route path="/cambioContra" element={<Cambio_Contraseña />} />
           <Route path="/perfilUsu" element={<PerfilUsu />} />
         </Routes>
       </div>

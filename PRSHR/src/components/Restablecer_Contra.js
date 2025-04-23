@@ -6,6 +6,12 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Restablecer_Contra = () => {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const redirigir = () => {
+    navigate('/'); 
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +58,11 @@ const Restablecer_Contra = () => {
               required
             />
           </div>
-          <button type="submit">Enviar correo de recuperacion</button>
+          
+          <button onClick={redirigir} type="submit">Enviar correo de recuperacion</button>
+        
+          
+          
         </form>
       </section>
 

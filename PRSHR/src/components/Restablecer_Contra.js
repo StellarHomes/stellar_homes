@@ -19,11 +19,11 @@ const Restablecer_Contra = () => {
       const response = await axios.post("http://localhost/API/solicitud.php", {
         email,
       });
-
-      if (response.data.message) {
-        Swal.fire("Éxito", response.data.message, "success");
+      const responseData = JSON.parse(response.data.replace("{}", ''));
+      if (responseData.status === "success") {
+        Swal.fire("Éxito", responseData.message, "success");
       } else {
-        Swal.fire("Error", response.data.error || "Error desconocido", "error");
+        Swal.fire("Error", responseData.error || "Error desconocido", "error");
       }
     } catch (error) {
       console.error("Error al enviar solicitud:", error);

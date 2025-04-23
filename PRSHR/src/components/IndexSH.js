@@ -36,15 +36,15 @@ const InmuebleCard = ({ inmueble }) => {
         <p className="inmueble-localidad">{inmueble.localidad}</p>
         <p className="inmueble-precio">{inmueble.precio}</p>
         <p className="inmueble-fecha">{inmueble.FechaPubli}</p>
-        <button onClick={handleInfoClick} className="delete-button">
+        <button onClick={() => navigate('/login')} className="delete-button">
           Más información
         </button>
       </div>
     </div>
   );
 };
-
 const SearchForm = ({ searchData, handleChange, handleSubmit }) => {
+  
   return (
     <section className="search">
       <h2>Buscar Inmueble</h2>
@@ -54,7 +54,6 @@ const SearchForm = ({ searchData, handleChange, handleSubmit }) => {
           <select id="tipo" name="tipo" value={searchData.tipo} onChange={handleChange}>
             <option value="casa">Casa</option>
             <option value="apartamento">Apartamento</option>
-            <option value="oficina">Oficina</option>
           </select>
         </div>
         <div className="form-group">
@@ -181,7 +180,7 @@ const InmueblesList = () => {
       </header>
 
       <div className="menu-bar">
-        <Link to="/inmueble"><button className="volverindex">Inmuebles</button></Link>
+      <Link to="/inmuebles"><button className="volverindex">Inmuebles</button></Link>
         <Link to="/login"><button className="volverindex">Iniciar Sesión</button></Link>
       </div>
 
@@ -224,7 +223,7 @@ const InmueblesList = () => {
 
       <footer>
         <nav>
-        <Link to="/inmueble"><button className="volverindex">Inmuebles</button></Link>
+        <Link to="/inmuebles"><button className="volverindex">Inmuebles</button></Link>
           <Link to="/login"><button className="volverindex">Iniciar Sesión</button></Link>
         </nav>
         <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />

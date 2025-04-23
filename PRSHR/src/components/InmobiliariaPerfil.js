@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
+import './InmobiliariaPerfil.css'; 
 
 const InmobiliariaPerfil = () => {
   const [inmobiliariaData, setInmobiliariaData] = useState({
@@ -15,156 +15,139 @@ const InmobiliariaPerfil = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     fetch('http://localhost/API/Inmobiliaria.php') 
       .then((response) => {
-        if (!response.ok) {
-          throw new Error('Error al obtener los datos');
-        }
+        if (!response.ok) throw new Error('Error al obtener los datos');
         return response.json();
       })
       .then((data) => {
-        if (data.error) {
-          throw new Error(data.error);
-        }
+        if (data.error) throw new Error(data.error);
         setInmobiliariaData(data); 
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Error al cargar los datos:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'No se pudieron cargar los datos de la inmobiliaria.',
-        });
+        console.error('Error:', error);
+        Swal.fire('Error', 'No se pudieron cargar los datos', 'error');
         setLoading(false);
       });
   }, []);
 
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setInmobiliariaData({
-      ...inmobiliariaData,
-      [name]: value
-    });
+    setInmobiliariaData(prev => ({ ...prev, [name]: value }));
   };
 
- 
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch('http://localhost/API/EditInmobiliaria.php', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(inmobiliariaData), 
     })
-    
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Error en la solicitud');
-      }
+    .then(response => {
+      if (!response.ok) throw new Error('Error en la solicitud');
       return response.json();
     })
-    .then((data) => {
-      if (data.success) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Perfil actualizado',
-          text: 'Tu perfil se ha actualizado correctamente.',
-        });
-      } else {
-        throw new Error(data.message || 'Error al actualizar el perfil');
-      }
+    .then(data => {
+      if (!data.success) throw new Error(data.message);
+      Swal.fire('Éxito', 'Perfil actualizado correctamente', 'success');
     })
-    .catch((error) => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Hubo un problema al actualizar tu perfil.',
-      });
-      console.error('Error al actualizar:', error);
+    .catch(error => {
+      Swal.fire('Error', 'Hubo un problema al actualizar', 'error');
+      console.error('Error:', error);
     });
   };
 
   if (loading) {
-    return <div>Cargando...</div>;
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Cargando información...</p>
+      </div>
+    );
   }
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL}/diseno-de-casas-modernas-1_0.jpg)`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        height: '100vh', 
-      }}
-    >
-      <header>
+    <div className="profile-container">
+      {/* Header */}
+      <header className="profile-header">
         <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
-        <Link to="/" className="button">Cerrar Sesión</Link>
+        <Link to="/" className="logout-button">
+          <i className="fas fa-sign-out-alt"></i> Cerrar Sesión
+        </Link>
       </header>
 
-      <div className="content">
-        <div className="contenedores">
-          <div className="contenedor">
-            <Link to="/Inmuebles">Mis Publicaciones</Link>
-          </div>
-          <div className="contenedor">
-            <a href="/publicar">Publicar</a>
-          </div>
-        </div>
+      {/* Menú de navegación */}
+      <nav className="profile-nav">
+        <Link to="/Inmuebles" className="nav-button">
+          <i className="fas fa-home"></i> Mis Publicaciones
+        </Link>
+        <Link to="/publicar" className="nav-button">
+          <i className="fas fa-plus-circle"></i> Publicar Inmueble
+        </Link>
+      </nav>
 
-        <div className="container">
-          <form onSubmit={handleSubmit} className="form-card">
-            <h1 className="form-title"> {inmobiliariaData.NombreInmobiliaria}</h1>
+      {/* Formulario de perfil */}
+      <main className="profile-main">
+        <div className="profile-card">
+          <h1 className="profile-title">
+            <i className="fas fa-building"></i> {inmobiliariaData.NombreInmobiliaria}
+          </h1>
+          
+          <form onSubmit={handleSubmit} className="profile-form">
             <input type="hidden" name="idInmobiliaria" value={inmobiliariaData.idInmobiliaria} />
+            
             <div className="form-group">
-              <label>Nombre:</label>
+              <label><i className="fas fa-signature"></i> Nombre:</label>
               <input
                 type="text"
                 name="NombreInmobiliaria"
                 value={inmobiliariaData.NombreInmobiliaria}
                 onChange={handleChange}
-                className="form-control"
+                required
               />
             </div>
+            
             <div className="form-group">
-              <label>Email Inmobiliaria:</label>
+              <label><i className="fas fa-envelope"></i> Email:</label>
               <input
                 type="email"
                 name="EmailInmobiliaria"
                 value={inmobiliariaData.EmailInmobiliaria}
                 onChange={handleChange}
-                className="form-control"  
+                required
               />
             </div>
+            
             <div className="form-group">
-              <label>Teléfono:</label>
+              <label><i className="fas fa-phone"></i> Teléfono:</label>
               <input
                 type="tel"
                 name="Telefono"
                 value={inmobiliariaData.Telefono}
                 onChange={handleChange}
-                className="form-control"
+                required
               />
             </div>
+            
             <div className="form-group">
-              <label>Dirección:</label>
+              <label><i className="fas fa-map-marker-alt"></i> Dirección:</label>
               <input
                 type="text"
                 name="Direccion"
                 value={inmobiliariaData.Direccion}
                 onChange={handleChange}
-                className="form-control"
+                required
               />
             </div>
-            <button type="submit" className="btn btn-submit">Editar</button>
+            
+            <button type="submit" className="submit-button">
+              <i className="fas fa-save">Guardar Cambios</i>
+            </button>
           </form>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

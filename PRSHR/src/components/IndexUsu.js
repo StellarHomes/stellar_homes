@@ -19,7 +19,7 @@ const InmuebleCard = ({ inmueble }) => {
         <p className="inmueble-localidad">{inmueble.localidad}</p>
         <p className="inmueble-precio">{inmueble.precio}</p>
         <p className="inmueble-fecha">{inmueble.FechaPubli}</p>
-        <button onClick={() => navigate(`/inmueble/${inmueble.idInmueble}`)}>
+        <button onClick={() => navigate((`/IfoInmueble/${inmueble.idInmueble}`))} className="delete-button">
           Más información
         </button>
       </div>
@@ -69,6 +69,8 @@ const InmueblesList = () => {
     zona: '',
     precio: ''
   });
+  const [usuarioData, setUsuarioData] = useState(null); 
+  const [loadingUser, setLoadingUser] = useState(true);
   const [index, setIndex] = useState(0);
   const navigate = useNavigate(); 
 
@@ -78,6 +80,36 @@ const InmueblesList = () => {
     "/luxury-beach-house-sea-view-600nw-2313357873.webp"
   ];
 
+
+    useEffect(() => {
+      const fetchUserData = () => {
+        const usuarioGuardado = JSON.parse(localStorage.getItem('usuario'));
+  
+        if (!usuarioGuardado || !usuarioGuardado.idCliente) {
+          Swal.fire('Error', 'Usuario no autenticado', 'error');
+          navigate('/login');
+          return;
+        }
+  
+        fetch(`http://localhost/API/cliente.php?idCliente=${usuarioGuardado.idCliente}`)
+          .then((response) => {
+            if (!response.ok) throw new Error('Error al obtener los datos');
+            return response.json();
+          })
+          .then((data) => {
+            if (data.error) throw new Error(data.error);
+            setUsuarioData(data);
+            setLoadingUser(false);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+            setLoadingUser(false);
+          });
+      };
+  
+      fetchInmuebles();
+      fetchUserData();
+    }, []);
   useEffect(() => {
     fetchInmuebles();
   }, []);
@@ -91,38 +123,6 @@ const InmueblesList = () => {
     } catch (error) {
       console.error('Error al obtener los inmuebles:', error);
     }
-  };
-
-  const handleDelete = async (id) => {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: '¡Esta acción no se puede deshacer!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#e74c3c',
-      cancelButtonColor: '#777',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const response = await fetch('http://localhost/API/deleteInmueble.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ idInmueble: id })
-          });
-          const data = await response.json();
-          if (data.message === 'Inmueble eliminado con éxito') {
-            setInmuebles((prevInmuebles) => prevInmuebles.filter(inmueble => inmueble.idInmueble !== id));
-            Swal.fire('Eliminado', 'El inmueble fue eliminado con éxito.', 'success');
-          }
-        } catch (error) {
-          console.error('Error al eliminar inmueble:', error);
-        }
-      }
-    });
   };
 
   const handleSearchChange = (e) => {
@@ -159,18 +159,27 @@ const InmueblesList = () => {
   const nextSlide = () => setIndex((index + 1) % slides.length);
   const prevSlide = () => setIndex((index - 1 + slides.length) % slides.length);
 
-  return (
-    <div>
-      <header>
-        <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
-      </header>
+    return (
+        <div>
+           
+           <header className="main-header">
+  <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
+  {usuarioData && (
+    <span className="usuario-nombre">
+      Bienvenido, <strong>{usuarioData.Nombre} {usuarioData.Apellido}</strong>
+    </span>
+  )}
+</header>
 
-      <div className="menu-bar">
-        <Link to="/InmueblesList"><button className="volverindex">Inmuebles</button></Link>
-        <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
-      </div>
 
-      <section className="carousel">
+            <div className="menu-bar">
+                <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
+                <a href="/perfilUsu"><button className="volverindex">Perfil</button></a>
+            </div>
+
+        
+            
+            <section className="carousel">
         <div className="carousel-container" style={{ transform: `translateX(-${index * 100}%)` }}>
           {slides.map((src, i) => (
             <div key={i} className="carousel-slide">
@@ -197,8 +206,8 @@ const InmueblesList = () => {
       <section className="inmuebles-section">
         <div className="inmuebles-list">
           {inmuebles.length > 0 ? (
-            inmuebles.slice(0, 3).map((inmueble) => (
-              <InmuebleCard key={inmueble.idInmueble} inmueble={inmueble} />
+            inmuebles.map((inmueble) => (
+              <InmuebleCard key={inmueble.idInmueble} inmueble={inmueble} navigate={navigate} />
             ))
           ) : (
             <p>No hay inmuebles disponibles.</p>
@@ -206,16 +215,16 @@ const InmueblesList = () => {
         </div>
       </section>
 
-      <footer>
-        <nav>
-          <Link to="/InmueblesList"><button className="volverindex">Inmuebles</button></Link>
-          <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
-        </nav>
-        <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />
-        <p>&copy; 2024 Inmobiliaria. Todos los derechos reservados.</p>
-      </footer>
-    </div>
-  );
-};
+            <footer>
+                <nav>
+                    <Link to="/inmuebles"><button className="volverindex">Inmuebles</button></Link>
+                    <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
+                </nav>
+                <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />
+                <p>&copy; 2024 Inmobiliaria. Todos los derechos reservados.</p>
+            </footer>
+        </div>
+    );
+}
 
 export default InmueblesList;

@@ -10,9 +10,9 @@ import Publicar from './components/Publicar';
 import InmueblesList from './components/InmueblesList';
 import InmueblesListUsu from './components/InmueblesListUsu';
 import EditarInmueble from './components/EditarInmueble'; 
-import InfoInmueble from "./components/InfoInmueble";
+import IfoInmueble from './components/IfoInmueble';
 import Restablecer_Contra from './components/Restablecer_Contra';
-import Inmueble from './components/Inmuebles';
+import PerfilUsu from './components/PerfilUsu';
 
 function App() {
   return (
@@ -29,9 +29,9 @@ function App() {
           <Route path="/inmuebles" element={<InmueblesList />} />
           <Route path="/inmueble" element={<Inmueble />} />
           <Route path="/editarInmueble/:idInmueble" element={<EditarInmueble />} />
-          <Route path="/inmueble/:id" element={<InfoInmueble />} />
+          <Route path="/IfoInmueble/:id" element={<IfoInmueble />} />
           <Route path="/restablecer" element={<Restablecer_Contra />} />
-          <Route path="/inmueblesList" element={<InmueblesListUsu />} />
+          <Route path="/perfilUsu" element={<PerfilUsu />} />
         </Routes>
       </div>
     </Router>

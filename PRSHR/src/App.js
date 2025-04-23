@@ -30,7 +30,7 @@ function App() {
           <Route path="/inmueble" element={<InmueblesListUsu />} />
           <Route path="/editarInmueble/:idInmueble" element={<EditarInmueble />} />
           <Route path="/IfoInmueble/:id" element={<IfoInmueble />} />
-          <Route path="/Restablecer_Contraseña" element={<Restablecer_Contra />} />
+          <Route path="/restablecer contraseña" element={<Restablecer_Contra />} />
           <Route path="/perfilUsu" element={<PerfilUsu />} />
         </Routes>
       </div>

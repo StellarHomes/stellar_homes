@@ -64,14 +64,15 @@ const SearchForm = ({ searchData, handleChange, handleSubmit }) => {
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="zona">Zona:</label>
-          <input type="text" id="zona" name="zona" value={searchData.zona} onChange={handleChange} placeholder="Ingrese la zona" />
+          <label htmlFor="localidad">localidad:</label>
+          <input type="text" id="localidad" name="localidad" value={searchData.localidad} onChange={handleChange} placeholder="Ingrese la localidad" />
         </div>
         <div className="form-group">
           <label htmlFor="precio">Precio:</label>
           <input type="number" id="precio" name="precio" value={searchData.precio} onChange={handleChange} placeholder="Ingrese el precio" />
         </div>
         <button type="submit">Buscar</button>
+        <button type="button"> limpiar</button>
       </form>
     </section>
   );
@@ -82,7 +83,7 @@ const InmueblesList = () => {
   const [searchData, setSearchData] = useState({
     tipo: '',
     estado: '',
-    zona: '',
+    localidad: '',
     precio: ''
   });
   const [index, setIndex] = useState(0);
@@ -151,7 +152,7 @@ const InmueblesList = () => {
     const queryParams = new URLSearchParams({
       tipo: searchData.tipo,
       estado: searchData.estado,
-      zona: searchData.zona,
+      localidad: searchData.localidad,
       precio: searchData.precio
     });
 

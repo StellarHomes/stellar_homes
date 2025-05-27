@@ -36,7 +36,7 @@ const EditarInmueble = () => {
         localidad: inmueble.localidad || '',
         precio: inmueble.precio || '',
         FechaPubli: inmueble.FechaPubli || '',
-        ImagenUrl: inmueble.imagen ? `data:image/jpeg;base64,${inmueble.imagen}` : '', 
+        ImagenUrl: inmueble.imagen ? `${inmueble.imagen}` : '', 
         estado_id_estado: inmueble.estado_id_estado || '',
         tipo_idtipo: inmueble.tipo_idtipo || '',
         transaccion_idtransaccion: inmueble.transaccion_idtransaccion || '',
@@ -57,7 +57,7 @@ const EditarInmueble = () => {
                 localidad: data.localidad,
                 precio: data.precio,
                 FechaPubli: data.FechaPubli,
-                ImagenUrl: data.imagen ? `data:image/jpeg;base64,${data.imagen}` : '',
+                ImagenUrl: data.imagen ? `${data.imagen}` : '',
                 estado_id_estado: data.estado_id_estado,
                 tipo_idtipo: data.tipo_idtipo,
                 transaccion_idtransaccion: data.transaccion_idtransaccion,
@@ -138,19 +138,22 @@ const EditarInmueble = () => {
       }
 
     
-      const response = await axios.post('http://localhost/API/updateInmueble.php', updatedData, {
+      const response = await axios.post('http://localhost/API/editarInmueble.php', updatedData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
   
-      if (response.data.success) {
-        Swal.fire('Éxito', 'El inmueble ha sido actualizado correctamente.', 'success');
-        navigate('/inmuebles');
-      } else {
-        Swal.fire('Error', 'Hubo un problema al actualizar el inmueble.', 'error');
-      }
+if (response.data.success) {
+  Swal.fire('Éxito', 'El inmueble ha sido actualizado correctamente.', 'success');
+  navigate('/inmuebles');
+} else if (response.data.error) {
+  Swal.fire('Error', response.data.error, 'error');
+} else {
+  Swal.fire('Error', 'Hubo un problema al actualizar el inmueble.', 'error');
+}
+
     } catch (error) {
       console.error('Error al actualizar el inmueble:', error);
       Swal.fire('Error', 'Ocurrió un error al intentar actualizar el inmueble.', 'error');
@@ -187,11 +190,11 @@ const EditarInmueble = () => {
               <div className="field">
                 <label className="label">Imagen Actual</label>
                 <div className="control">
-                  <img
-                    src={formData.ImagenUrl} 
-                    alt="Imagen del Inmueble"
-                    style={{ maxWidth: '100%', height: 'auto' }}
-                  />
+                <img
+                  src={formData.ImagenUrl}
+                  alt="Imagen del Inmueble"
+                  style={{ maxWidth: '100%', height: 'auto' }}
+                />
                 </div>
               </div>
             )}

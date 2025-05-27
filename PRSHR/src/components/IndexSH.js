@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Inmuebles.css';
 import Swal from 'sweetalert2';
 
-// Componente para mostrar una tarjeta de inmueble
+
 const InmuebleCard = ({ inmueble }) => {
   const navigate = useNavigate();
 
@@ -45,7 +45,6 @@ const InmuebleCard = ({ inmueble }) => {
   );
 };
 
-// Componente de formulario de búsqueda
 const SearchForm = ({ searchData, handleChange, handleSubmit, handleClear }) => {
   return (
     <section className="search">

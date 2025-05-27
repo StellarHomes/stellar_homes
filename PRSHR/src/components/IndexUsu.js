@@ -27,35 +27,53 @@ const InmuebleCard = ({ inmueble }) => {
   );
 };
 
-const SearchForm = ({ searchData, handleChange, handleSubmit }) => {
+const SearchForm = ({ searchData, handleChange, handleSubmit, handleClear }) => {
   return (
     <section className="search">
       <h2>Buscar Inmueble</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="tipo">Tipo de Inmueble:</label>
-          <select id="tipo" name="tipo" value={searchData.tipo} onChange={handleChange}>
+          <select className="opcion" id="tipo" name="tipo" value={searchData.tipo} onChange={handleChange}>
+            <option value="">Seleccione</option>
             <option value="casa">Casa</option>
             <option value="apartamento">Apartamento</option>
-            <option value="oficina">Oficina</option>
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="estado">Estado:</label>
-          <select id="estado" name="estado" value={searchData.estado} onChange={handleChange}>
+          <label htmlFor="transaccion">transaccion:</label>
+          <select className="opcion" id="transaccion" name="transaccion" value={searchData.transaccion} onChange={handleChange}>
+            <option value="">Seleccione</option>
             <option value="venta">Venta</option>
             <option value="arriendo">Arriendo</option>
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="zona">Zona:</label>
-          <input type="text" id="zona" name="zona" value={searchData.zona} onChange={handleChange} placeholder="Ingrese la zona" />
+          <label htmlFor="localidad">Localidad:</label>
+          <input
+            className="opcion"
+            type="text"
+            id="localidad"
+            name="localidad"
+            value={searchData.localidad}
+            onChange={handleChange}
+            placeholder="Ingrese la localidad"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="precio">Precio:</label>
-          <input type="number" id="precio" name="precio" value={searchData.precio} onChange={handleChange} placeholder="Ingrese el precio" />
+          <input
+            className="opcion"
+            type="number"
+            id="precio"
+            name="precio"
+            value={searchData.precio}
+            onChange={handleChange}
+            placeholder="Ingrese el precio"
+          />
         </div>
         <button type="submit">Buscar</button>
+        <button type="button" onClick={handleClear}>Limpiar</button>
       </form>
     </section>
   );
@@ -65,8 +83,8 @@ const InmueblesList = () => {
   const [inmuebles, setInmuebles] = useState([]);
   const [searchData, setSearchData] = useState({
     tipo: '',
-    estado: '',
-    zona: '',
+    transaccion: '',
+    localidad: '',
     precio: ''
   });
   const [usuarioData, setUsuarioData] = useState(null); 
@@ -155,6 +173,16 @@ const InmueblesList = () => {
       setInmuebles([]); 
     }
   };
+    const handleClear = () => {
+    setSearchData({
+      tipo: '',
+      transaccion: '',
+      localidad: '',
+      precio: ''
+    });
+    fetchInmuebles();
+  };
+
 
   const nextSlide = () => setIndex((index + 1) % slides.length);
   const prevSlide = () => setIndex((index - 1 + slides.length) % slides.length);
@@ -200,7 +228,9 @@ const InmueblesList = () => {
       <SearchForm 
         searchData={searchData} 
         handleChange={handleSearchChange} 
-        handleSubmit={handleSearchSubmit} 
+        handleSubmit={handleSearchSubmit}
+        handleClear={handleClear}
+
       />
 
       <section className="inmuebles-section">

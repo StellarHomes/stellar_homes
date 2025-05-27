@@ -105,7 +105,10 @@ body,
     text-align: center;
 }
 
-
+.opcion{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #333;
+}
 
 
 .inmuebles-section .inmuebles-list {

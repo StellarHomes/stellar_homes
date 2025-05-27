@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Inmuebles.css';
 import Swal from 'sweetalert2';
 
+// Componente para mostrar una tarjeta de inmueble
 const InmuebleCard = ({ inmueble }) => {
   const navigate = useNavigate();
 
@@ -18,7 +19,7 @@ const InmuebleCard = ({ inmueble }) => {
       cancelButtonColor: '#aaa'
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate('/registerCli'); 
+        navigate('/registerCli');
       }
     });
   };
@@ -36,53 +37,73 @@ const InmuebleCard = ({ inmueble }) => {
         <p className="inmueble-localidad">{inmueble.localidad}</p>
         <p className="inmueble-precio">{inmueble.precio}</p>
         <p className="inmueble-fecha">{inmueble.FechaPubli}</p>
-        <button onClick={() => navigate('/login')} className="delete-button">
+        <button onClick={handleInfoClick} className="delete-button">
           Más información
         </button>
       </div>
     </div>
   );
 };
-const SearchForm = ({ searchData, handleChange, handleSubmit }) => {
-  
+
+// Componente de formulario de búsqueda
+const SearchForm = ({ searchData, handleChange, handleSubmit, handleClear }) => {
   return (
     <section className="search">
       <h2>Buscar Inmueble</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="tipo">Tipo de Inmueble:</label>
-          <select id="tipo" name="tipo" value={searchData.tipo} onChange={handleChange}>
+          <select className="opcion" id="tipo" name="tipo" value={searchData.tipo} onChange={handleChange}>
+            <option value="">Seleccione</option>
             <option value="casa">Casa</option>
             <option value="apartamento">Apartamento</option>
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="estado">Estado:</label>
-          <select id="estado" name="estado" value={searchData.estado} onChange={handleChange}>
+          <label htmlFor="transaccion">transaccion:</label>
+          <select className="opcion" id="transaccion" name="transaccion" value={searchData.transaccion} onChange={handleChange}>
+            <option value="">Seleccione</option>
             <option value="venta">Venta</option>
             <option value="arriendo">Arriendo</option>
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="localidad">localidad:</label>
-          <input type="text" id="localidad" name="localidad" value={searchData.localidad} onChange={handleChange} placeholder="Ingrese la localidad" />
+          <label htmlFor="localidad">Localidad:</label>
+          <input
+            className="opcion"
+            type="text"
+            id="localidad"
+            name="localidad"
+            value={searchData.localidad}
+            onChange={handleChange}
+            placeholder="Ingrese la localidad"
+          />
         </div>
         <div className="form-group">
           <label htmlFor="precio">Precio:</label>
-          <input type="number" id="precio" name="precio" value={searchData.precio} onChange={handleChange} placeholder="Ingrese el precio" />
+          <input
+            className="opcion"
+            type="number"
+            id="precio"
+            name="precio"
+            value={searchData.precio}
+            onChange={handleChange}
+            placeholder="Ingrese el precio"
+          />
         </div>
         <button type="submit">Buscar</button>
-        <button type="button"> limpiar</button>
+        <button type="button" onClick={handleClear}>Limpiar</button>
       </form>
     </section>
   );
 };
 
+
 const InmueblesList = () => {
   const [inmuebles, setInmuebles] = useState([]);
   const [searchData, setSearchData] = useState({
     tipo: '',
-    estado: '',
+    transaccion: '',
     localidad: '',
     precio: ''
   });
@@ -108,38 +129,6 @@ const InmueblesList = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: '¡Esta acción no se puede deshacer!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#e74c3c',
-      cancelButtonColor: '#777',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const response = await fetch('http://localhost/API/deleteInmueble.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ idInmueble: id })
-          });
-          const data = await response.json();
-          if (data.message === 'Inmueble eliminado con éxito') {
-            setInmuebles((prev) => prev.filter(inmueble => inmueble.idInmueble !== id));
-            Swal.fire('Eliminado', 'El inmueble fue eliminado con éxito.', 'success');
-          }
-        } catch (error) {
-          console.error('Error al eliminar inmueble:', error);
-        }
-      }
-    });
-  };
-
   const handleSearchChange = (e) => {
     setSearchData({
       ...searchData,
@@ -151,24 +140,29 @@ const InmueblesList = () => {
     e.preventDefault();
     const queryParams = new URLSearchParams({
       tipo: searchData.tipo,
-      estado: searchData.estado,
+      transaccion: searchData.transaccion,
       localidad: searchData.localidad,
       precio: searchData.precio
     });
 
     try {
-      const response = await fetch(`http://localhost/api/inmuebles.php?${queryParams.toString()}`);
+      const response = await fetch(`http://localhost/API/inmuebles.php?${queryParams.toString()}`);
       const data = await response.json();
-      if (data.error) {
-        console.error('Error:', data.error);
-        setInmuebles([]); 
-      } else {
-        setInmuebles(data);
-      }
+      setInmuebles(data.error ? [] : data);
     } catch (error) {
       console.error('Error de red:', error);
-      setInmuebles([]); 
+      setInmuebles([]);
     }
+  };
+
+  const handleClear = () => {
+    setSearchData({
+      tipo: '',
+      transaccion: '',
+      localidad: '',
+      precio: ''
+    });
+    fetchInmuebles();
   };
 
   const nextSlide = () => setIndex((index + 1) % slides.length);
@@ -181,7 +175,7 @@ const InmueblesList = () => {
       </header>
 
       <div className="menu-bar">
-      <Link to="/inmueble"><button className="volverindex">Inmuebles</button></Link>
+        <Link to="/inmueble"><button className="volverindex">Inmuebles</button></Link>
         <Link to="/login"><button className="volverindex">Iniciar Sesión</button></Link>
       </div>
 
@@ -206,7 +200,8 @@ const InmueblesList = () => {
       <SearchForm 
         searchData={searchData} 
         handleChange={handleSearchChange} 
-        handleSubmit={handleSearchSubmit} 
+        handleSubmit={handleSearchSubmit}
+        handleClear={handleClear} 
       />
 
       <section className="inmuebles-section">
@@ -215,7 +210,6 @@ const InmueblesList = () => {
             inmuebles.slice(0, 3).map((inmueble) => (
               <InmuebleCard key={inmueble.idInmueble} inmueble={inmueble} />
             ))
-            
           ) : (
             <p>No hay inmuebles disponibles.</p>
           )}
@@ -224,7 +218,7 @@ const InmueblesList = () => {
 
       <footer>
         <nav>
-        <Link to="/inmuebles"><button className="volverindex">Inmuebles</button></Link>
+          <Link to="/inmuebles"><button className="volverindex">Inmuebles</button></Link>
           <Link to="/login"><button className="volverindex">Iniciar Sesión</button></Link>
         </nav>
         <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />

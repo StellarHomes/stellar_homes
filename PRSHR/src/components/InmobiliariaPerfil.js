@@ -70,7 +70,7 @@ const InmobiliariaPerfil = () => {
 
   return (
     <div className="profile-container">
-      {/* Header */}
+
       <header className="profile-header">
         <img src="/sh_blanco-removebg-preview.png" alt="Logo" className="logo" />
         <Link to="/" className="logout-button">
@@ -78,7 +78,6 @@ const InmobiliariaPerfil = () => {
         </Link>
       </header>
 
-      {/* Menú de navegación */}
       <nav className="profile-nav">
         <Link to="/Inmuebles" className="nav-button">
           <i className="fas fa-home"></i> Mis Publicaciones
@@ -88,7 +87,6 @@ const InmobiliariaPerfil = () => {
         </Link>
       </nav>
 
-      {/* Formulario de perfil */}
       <main className="profile-main">
         <div className="profile-card">
           <h1 className="profile-title">

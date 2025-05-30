@@ -52,7 +52,7 @@ const SearchForm = ({ searchData, handleChange, handleSubmit, handleClear }) => 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="tipo">Tipo de Inmueble:</label>
-          <select className="opcion" id="tipo" name="tipo" value={searchData.tipo} onChange={handleChange}>
+          <select className="opcion" id="tipo_nombre" name="tipo_nombre" value={searchData.tipo_nombre} onChange={handleChange}>
             <option value="">Seleccione</option>
             <option value="casa">Casa</option>
             <option value="apartamento">Apartamento</option>

@@ -15,6 +15,7 @@ const InmuebleCard = ({ inmueble }) => {
       />
       <div className="inmueble-details">
         <h2 className="inmueble-title">{inmueble.Nombre}</h2>
+        <p className="inmueble-description">{inmueble.tipo}</p>
         <p className="inmueble-description">{inmueble.Descripcion}</p>
         <p className="inmueble-localidad">{inmueble.localidad}</p>
         <p className="inmueble-precio">{inmueble.precio}</p>
@@ -134,7 +135,7 @@ const InmueblesList = () => {
 
   const fetchInmuebles = async () => {
     try {
-      const response = await fetch('http://localhost/API/getInmuebles.php');
+      const response = await fetch('http://localhost/API/Uinmuebles.php');
       const data = await response.json();
       console.log('Datos recibidos:', data);
       setInmuebles(data);

@@ -9,7 +9,7 @@ const InmueblesListUsu = () => {
   useEffect(() => {
     const fetchInmuebles = async () => {
       try {
-        const response = await fetch('http://localhost/API/getInmuebles.php');
+        const response = await fetch('http://localhost/API/Uinmuebles.php');
         const data = await response.json();
         setInmuebles(data);
       } catch (error) {

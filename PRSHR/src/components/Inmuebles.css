@@ -51,6 +51,10 @@ body,
         font-size: large;
     }
 
+    .letras{
+        color: white;
+    }
+
     .dropdown {
         display: inline-block;
     }

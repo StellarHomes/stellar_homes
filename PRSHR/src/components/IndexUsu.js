@@ -252,7 +252,7 @@ const InmueblesList = () => {
                     <Link to="/"><button className="volverindex">Cerrar Sesión</button></Link>
                 </nav>
                 <img src="/sh_blanco-removebg-preview.png" alt="Logo2" className="logo2" />
-                <p>&copy; 2024 Inmobiliaria. Todos los derechos reservados.</p>
+                <p>&copy; 2025 STELLAR HOMES. Todos los derechos reservados.</p>
             </footer>
         </div>
     );

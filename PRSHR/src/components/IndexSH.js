@@ -52,7 +52,7 @@ const SearchForm = ({ searchData, handleChange, handleSubmit, handleClear }) => 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="tipo">Tipo de Inmueble:</label>
-          <select className="opcion" id="tipo_nombre" name="tipo_nombre" value={searchData.tipo_nombre} onChange={handleChange}>
+          <select className="opcion" id="tipo" name="tipo" value={searchData.tipo} onChange={handleChange}>
             <option value="">Seleccione</option>
             <option value="casa">Casa</option>
             <option value="apartamento">Apartamento</option>
@@ -120,7 +120,7 @@ const InmueblesList = () => {
 
   const fetchInmuebles = async () => {
     try {
-      const response = await fetch('http://localhost/API/getInmuebles.php');
+      const response = await fetch('http://localhost/API/Uinmuebles.php');
       const data = await response.json();
       setInmuebles(data);
     } catch (error) {

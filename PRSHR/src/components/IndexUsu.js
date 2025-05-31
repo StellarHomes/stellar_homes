@@ -155,13 +155,13 @@ const InmueblesList = () => {
     e.preventDefault();
     const queryParams = new URLSearchParams({
       tipo: searchData.tipo,
-      estado: searchData.estado,
-      zona: searchData.zona,
+      transaccion: searchData.transaccion,
+      localidad: searchData.localidad,
       precio: searchData.precio
     });
-
+    
     try {
-      const response = await fetch(`http://localhost/api/inmuebles.php?${queryParams.toString()}`);
+      const response = await fetch(`http://localhost/API/inmuebles.php?${queryParams.toString()}`);
       const data = await response.json();
       if (data.error) {
         console.error('Error:', data.error);

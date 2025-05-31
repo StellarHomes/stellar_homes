@@ -112,15 +112,39 @@ const InmueblesInfo = () => {
                             
                             <div className="detail-item">
                                 <span className="detail-label">Estado:</span>
-                                <span className={`detail-value status ${inmueble.estado_desc?.toLowerCase()}`}>
+                                <span className="detail-value"> 
                                     {inmueble.estado_desc || 'No disponible'}
+                                                   
                                 </span>
                             </div>
                         </div>
                         
-                        <Link to={`/contacto/${inmueble.idInmueble}`} className="contact-button">
-                            <i className="fas fa-envelope"></i> Contactar
-                        </Link>
+<a
+  href={`https://mail.google.com/mail/?view=cm&fs=1&to=me1234@gmail.com&su=Interesado en el inmueble&body=${encodeURIComponent(
+    `Hola,
+
+Estoy interesado en el inmueble con las siguientes características:
+
+Descripción: ${inmueble.Descripcion}
+Localidad: ${inmueble.localidad}
+Dirección: ${inmueble.dataireccion}
+Precio: $${new Intl.NumberFormat('es-CO').format(inmueble.precio)}
+Estado: ${inmueble.estado_desc}
+Fecha de Publicación: ${inmueble.fechaPublicacion}
+
+Por favor, contáctame para más detalles.
+
+Gracias.`
+  )}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="contact-button"
+>
+  <i className="fas fa-envelope"></i> Contactar
+</a>
+
+
+
                     </div>
                 </div>
             </div>
@@ -129,7 +153,7 @@ const InmueblesInfo = () => {
                 <Link to="/indexUsu" className="back-button">
                     <i className="fas fa-arrow-left"></i> Volver a Propiedades
                 </Link>
-                <p className="copyright">&copy; {new Date().getFullYear()} Inmobiliaria. Todos los derechos reservados.</p>
+                <p className="copyright">&copy; {new Date().getFullYear()} STELLAR HOMES. Todos los derechos reservados.</p>
             </footer>
         </div>
     );

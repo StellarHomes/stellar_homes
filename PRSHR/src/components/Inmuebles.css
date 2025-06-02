@@ -210,6 +210,57 @@ body,
     border-radius: 5px;
     font-size: 0.9rem;
   }
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.round-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  z-index: 999;
+  width: 200px;
+}
+
+.dropdown-group {
+  margin-bottom: 1rem;
+}
+
+.dropdown-group strong {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.dropdown-group button {
+  display: block;
+  background: none;
+  border: none;
+  color: #007bff;
+  padding: 0.3rem 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-group button:hover {
+  text-decoration: underline;
+}
 
   @tailwind base;
   @tailwind components;

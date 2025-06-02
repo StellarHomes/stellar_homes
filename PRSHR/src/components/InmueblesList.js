@@ -5,34 +5,53 @@ import './Inmuebles.css';
 
 const InmueblesList = () => {
   const [inmuebles, setInmuebles] = useState([]);
+  const [filtros, setFiltros] = useState({ tipo: '', transaccion: '', estado: '' });
+  const [opciones, setOpciones] = useState({ tipos: [], transacciones: [], estados: [] });
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const fetchInmuebles = async () => {
+  const fetchOpciones = async () => {
     try {
-      const response = await fetch('http://localhost/API/getInmuebles.php');
-      const data = await response.json();
-      console.log('Datos recibidos:', data);
-      return data;
+      const res = await fetch('http://localhost/API/inmuebles.php?action=opciones');
+      const data = await res.json();
+      setOpciones(data);
     } catch (error) {
-      console.error('Error al obtener los inmuebles:', error);
+      console.error('Error al obtener opciones:', error);
     }
   };
 
-  const reloadInmuebles = async () => {
-    const data = await fetchInmuebles();
-    if (data && Array.isArray(data)) {
+  const fetchInmuebles = async () => {
+    try {
+      const query = new URLSearchParams(filtros);
+      const res = await fetch(`http://localhost/API/inmuebles.php?${query}`);
+      const data = await res.json();
       setInmuebles(data);
-    } else {
-      console.log('No se recibieron datos válidos:', data);
+    } catch (error) {
+      console.error('Error al obtener inmuebles:', error);
     }
   };
 
   useEffect(() => {
-    reloadInmuebles();
+    fetchOpciones();
+    fetchInmuebles();
   }, []);
 
+  useEffect(() => {
+    fetchInmuebles();
+  }, [filtros]);
+
+  const handleSelect = (campo, valor) => {
+    setFiltros(prev => ({ ...prev, [campo]: valor }));
+    setOpen(false);
+  };
+
+  const handleClear = () => {
+    setFiltros({ tipo: '', transaccion: '', estado: '' });
+    setOpen(false);
+  };
+
   const handleDelete = async (id) => {
-    Swal.fire({
+    const result = await Swal.fire({
       title: '¿Estás seguro?',
       text: '¡Esta acción no se puede deshacer!',
       icon: 'warning',
@@ -41,37 +60,32 @@ const InmueblesList = () => {
       cancelButtonColor: '#777',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const response = await fetch('http://localhost/API/deleteInmueble.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ idInmueble: id })
-          });
-          const data = await response.json();
-          if (data.message === 'Inmueble eliminado con éxito') {
-            setInmuebles((prevInmuebles) => prevInmuebles.filter(inmueble => inmueble.idInmueble !== id));
-            Swal.fire('Eliminado', 'El inmueble fue eliminado con éxito.', 'success');
-          }
-        } catch (error) {
-          console.error('Error al eliminar inmueble:', error);
-        }
-      }
     });
+
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch('http://localhost/API/deleteInmueble.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ idInmueble: id })
+        });
+        const data = await response.json();
+        if (data.message === 'Inmueble eliminado con éxito') {
+          setInmuebles(prev => prev.filter(inmueble => inmueble.idInmueble !== id));
+          Swal.fire('Eliminado', 'El inmueble fue eliminado con éxito.', 'success');
+        }
+      } catch (error) {
+        console.error('Error al eliminar inmueble:', error);
+      }
+    }
   };
 
   const handleEdit = async (id) => {
     try {
       const response = await fetch(`http://localhost/API/getInmuebleById.php?idInmueble=${id}`);
       const inmueble = await response.json();
-      console.log('Inmueble encontrado para editar:', inmueble);
       if (inmueble && !inmueble.error) {
         navigate(`/editarInmueble/${id}`, { state: { inmueble } });
-      } else {
-        console.log('No se encontró el inmueble.');
       }
     } catch (error) {
       console.error('Error al obtener el inmueble para editar:', error);
@@ -86,12 +100,38 @@ const InmueblesList = () => {
         <Link to="/Perfil" className="button">Volver</Link>
       </header>
 
+      <div className="dropdown-container">
+        <button className="round-button" onClick={() => setOpen(!open)}>☰</button>
+        {open && (
+          <div className="dropdown-menu">
+            <div className="dropdown-group">
+              <strong>Tipo</strong>
+              {opciones.tipos.map((op, i) => (
+                <button key={i} onClick={() => handleSelect('tipo', op)}>{op}</button>
+              ))}
+            </div>
+            <div className="dropdown-group">
+              <strong>Transacción</strong>
+              {opciones.transacciones.map((op, i) => (
+                <button key={i} onClick={() => handleSelect('transaccion', op)}>{op}</button>
+              ))}
+            </div>
+            <div className="dropdown-group">
+              <strong>Estado</strong>
+              {opciones.estados.map((op, i) => (
+                <button key={i} onClick={() => handleSelect('estado', op)}>{op}</button>
+              ))}
+            </div>
+            <button onClick={handleClear}>Limpiar filtros</button>
+          </div>
+        )}
+      </div>
+
       <div className="inmuebles-section">
         <div className="inmuebles-list">
           {inmuebles.length > 0 ? (
             inmuebles.map((inmueble) => (
               <div className="inmueble-card" key={inmueble.idInmueble}>
-
                 <img 
                   src={inmueble.imagen || 'default-image.jpg'} 
                   alt={inmueble.Nombre} 

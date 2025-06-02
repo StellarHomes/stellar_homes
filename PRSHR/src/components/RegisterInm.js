@@ -18,7 +18,12 @@ const RegisterInm = () => {
       [name]: value,
     });
   };
-
+       const [showPassword, setShowPassword] = useState(false);
+  
+    const togglePassword = () => {
+      setShowPassword(!showPassword);
+    };
+  
   const validateForm = (e) => {
     e.preventDefault();
 
@@ -133,12 +138,15 @@ const RegisterInm = () => {
         <div className="form-group">
           <label htmlFor="Contrasena">Contraseña:</label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="Contrasena"
             name="Contrasena"
             value={formData.Contrasena}
             onChange={handleChange}
           />
+          <button type="button" onClick={togglePassword} className="toggle-password">
+            {showPassword ? 'Ocultar' : 'Mostrar'}
+            </button>
         </div>
         <button className="buttoninicio">Registrarse</button>
       </form>

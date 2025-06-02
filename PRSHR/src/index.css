@@ -313,6 +313,20 @@
     button:hover {
         background-color: #e67e22;
     }
+    .boton {
+        background-color: #c8781c;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        grid-column: span 1;
+    }
+    .boton:hover {
+        background-color: #1121af;
+    }
 
     @media (min-width: 600px) {
         .search form {
@@ -350,6 +364,9 @@
         }
 
         button {
+            font-size: 1.1em;
+        }
+       .boton {
             font-size: 1.1em;
         }
     }

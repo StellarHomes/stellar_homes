@@ -37,6 +37,12 @@ const RegisterCli = () => {
     return true;
   };
 
+     const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -138,15 +144,22 @@ const RegisterCli = () => {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group relative">
           <label htmlFor="ContrasenaCliente">Contraseña:</label>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="ContrasenaCliente"
             name="ContrasenaCliente"
             value={formData.ContrasenaCliente}
             onChange={handleChange}
           />
+        <button
+          type="button"
+          onClick={togglePassword}
+          className="absolute right-3 top-[50px] text-black-500 hover:text-white"
+        >
+         {showPassword ? ( 'esconder') : ( 'ver')}
+        </button>
         </div>
         <div className="form-group">
           <label htmlFor="tipo_doc_id_tipoDoc">Tipo de Documento:</label>

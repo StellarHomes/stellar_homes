@@ -108,6 +108,14 @@ const LoginForm = () => {
 
   };
 
+
+
+     const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
  
   const handleLoginClick = (e) => {
     e.preventDefault(); 
@@ -140,10 +148,23 @@ const LoginForm = () => {
               <label htmlFor="user-email">Correo electrónico:</label>
               <input type="email" id="user-email" name="email" />
             </div>
-            <div className="form-group">
-              <label htmlFor="user-password">Contraseña:</label>
-              <input type="password" id="user-password" name="password" />
-            </div>
+      <div className="form-group relative">
+        <label htmlFor="user-password">Contraseña:</label>
+        <input
+          type={showPassword ? "text" : "password"}
+          id="user-password"
+          name="password"
+          className="w-full pr-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          type="button"
+          onClick={togglePassword}
+          className="absolute right-3 top-[50px] text-black-500 hover:text-white"
+        >
+         {showPassword ? ( 'esconder') : ( 'ver')}
+        </button>
+      </div>
+
            
             <button onClick={handleLoginClick} className="buttoninicio">Iniciar Sesión</button>
           </fieldset>
@@ -160,10 +181,22 @@ const LoginForm = () => {
               <label htmlFor="inmobiliaria-email">Correo electrónico:</label>
               <input type="email" id="inmobiliaria-email" name="email" />
             </div>
-            <div className="form-group">
-              <label htmlFor="inmobiliaria-password">Contraseña:</label>
-              <input type="password" id="inmobiliaria-password" name="password" />
-            </div>
+      <div className="form-group relative">
+        <label htmlFor="user-password">Contraseña:</label>
+        <input
+          type={showPassword ? "text" : "password"}
+          id="user-password"
+          name="password"
+          className="w-full pr-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          type="button"
+          onClick={togglePassword}
+          className="absolute right-3 top-[50px] text-black-500 hover:text-white"
+        >
+         {showPassword ? ( 'esconder') : ( 'ver')}
+        </button>
+      </div>
           
             <button onClick={handleLoginClick} className="buttoninicio">Iniciar Sesión</button>
           </fieldset>

@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Inmuebles.css';
 import Swal from 'sweetalert2';
 
-
 const InmuebleCard = ({ inmueble }) => {
   const navigate = useNavigate();
 
@@ -59,7 +58,7 @@ const SearchForm = ({ searchData, handleChange, handleSubmit, handleClear }) => 
           </select>
         </div>
         <div className="form-group">
-          <label htmlFor="transaccion">transaccion:</label>
+          <label htmlFor="transaccion">Transacción:</label>
           <select className="opcion" id="transaccion" name="transaccion" value={searchData.transaccion} onChange={handleChange}>
             <option value="">Seleccione</option>
             <option value="venta">Venta</option>
@@ -80,15 +79,19 @@ const SearchForm = ({ searchData, handleChange, handleSubmit, handleClear }) => 
         </div>
         <div className="form-group">
           <label htmlFor="precio">Precio:</label>
-          <input
+          <select
             className="opcion"
-            type="number"
             id="precio"
-            name="precio"
-            value={searchData.precio}
+            name="precioRango"
+            value={searchData.precioRango}
             onChange={handleChange}
-            placeholder="Ingrese el precio"
-          />
+          >
+            <option value="">Todos los precios</option>
+            <option value="0000000-999999">Hasta $1,000,000</option>
+            <option value="1000000-2000000">$1,000,000 - $2,000,000</option>
+            <option value="2000000-5000000">$2,000,000 - $5,000,000</option>
+            <option value="5000000-99999999999">Más de $5,000,000</option>
+          </select>
         </div>
         <button type="submit">Buscar</button>
         <button type="button" onClick={handleClear}>Limpiar</button>
@@ -97,14 +100,13 @@ const SearchForm = ({ searchData, handleChange, handleSubmit, handleClear }) => 
   );
 };
 
-
 const InmueblesList = () => {
   const [inmuebles, setInmuebles] = useState([]);
   const [searchData, setSearchData] = useState({
     tipo: '',
     transaccion: '',
     localidad: '',
-    precio: ''
+    precioRango: ''
   });
   const [index, setIndex] = useState(0);
 
@@ -115,16 +117,29 @@ const InmueblesList = () => {
   ];
 
   useEffect(() => {
-    fetchInmuebles();
+    fetchInmuebles(); // carga inicial
   }, []);
 
   const fetchInmuebles = async () => {
+    const params = new URLSearchParams();
+
+    if (searchData.tipo) params.append("tipo", searchData.tipo);
+    if (searchData.transaccion) params.append("transaccion", searchData.transaccion);
+    if (searchData.localidad) params.append("localidad", searchData.localidad);
+
+    if (searchData.precioRango) {
+      const [min, max] = searchData.precioRango.split("-");
+      params.append("precio_min", min);
+      params.append("precio_max", max);
+    }
+
     try {
-      const response = await fetch('http://localhost/API/Uinmuebles.php');
+      const response = await fetch(`http://localhost/API/inmuebles.php?${params.toString()}`);
       const data = await response.json();
-      setInmuebles(data);
+      setInmuebles(data.error ? [] : data);
     } catch (error) {
       console.error('Error al obtener los inmuebles:', error);
+      setInmuebles([]);
     }
   };
 
@@ -135,23 +150,9 @@ const InmueblesList = () => {
     });
   };
 
-  const handleSearchSubmit = async (e) => {
+  const handleSearchSubmit = (e) => {
     e.preventDefault();
-    const queryParams = new URLSearchParams({
-      tipo: searchData.tipo,
-      transaccion: searchData.transaccion,
-      localidad: searchData.localidad,
-      precio: searchData.precio
-    });
-
-    try {
-      const response = await fetch(`http://localhost/API/inmuebles.php?${queryParams.toString()}`);
-      const data = await response.json();
-      setInmuebles(data.error ? [] : data);
-    } catch (error) {
-      console.error('Error de red:', error);
-      setInmuebles([]);
-    }
+    fetchInmuebles();
   };
 
   const handleClear = () => {
@@ -159,7 +160,7 @@ const InmueblesList = () => {
       tipo: '',
       transaccion: '',
       localidad: '',
-      precio: ''
+      precioRango: ''
     });
     fetchInmuebles();
   };
@@ -197,10 +198,10 @@ const InmueblesList = () => {
       </section>
 
       <SearchForm 
-        searchData={searchData} 
-        handleChange={handleSearchChange} 
+        searchData={searchData}
+        handleChange={handleSearchChange}
         handleSubmit={handleSearchSubmit}
-        handleClear={handleClear} 
+        handleClear={handleClear}
       />
 
       <section className="inmuebles-section">

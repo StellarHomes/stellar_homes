@@ -12,7 +12,7 @@ const InmueblesList = () => {
 
   const fetchOpciones = async () => {
     try {
-      const res = await fetch('http://localhost/API/inmuebles.php?action=opciones');
+      const res = await fetch('http://localhost/API/finmobiliaria.php?action=opciones');
       const data = await res.json();
       setOpciones(data);
     } catch (error) {
@@ -23,7 +23,7 @@ const InmueblesList = () => {
   const fetchInmuebles = async () => {
     try {
       const query = new URLSearchParams(filtros);
-      const res = await fetch(`http://localhost/API/inmuebles.php?${query}`);
+      const res = await fetch(`http://localhost/API/finmobiliaria.php?${query}`);
       const data = await res.json();
       setInmuebles(data);
     } catch (error) {
@@ -100,32 +100,70 @@ const InmueblesList = () => {
         <Link to="/Perfil" className="button">Volver</Link>
       </header>
 
-      <div className="dropdown-container">
-        <button className="round-button" onClick={() => setOpen(!open)}>☰</button>
-        {open && (
-          <div className="dropdown-menu">
-            <div className="dropdown-group">
-              <strong>Tipo</strong>
-              {opciones.tipos.map((op, i) => (
-                <button key={i} onClick={() => handleSelect('tipo', op)}>{op}</button>
-              ))}
-            </div>
-            <div className="dropdown-group">
-              <strong>Transacción</strong>
-              {opciones.transacciones.map((op, i) => (
-                <button key={i} onClick={() => handleSelect('transaccion', op)}>{op}</button>
-              ))}
-            </div>
-            <div className="dropdown-group">
-              <strong>Estado</strong>
-              {opciones.estados.map((op, i) => (
-                <button key={i} onClick={() => handleSelect('estado', op)}>{op}</button>
-              ))}
-            </div>
-            <button onClick={handleClear}>Limpiar filtros</button>
-          </div>
-        )}
+    <div className="relative inline-block text-left">
+  <button
+    onClick={() => setOpen(!open)}
+    className="buttoninicio"
+  >
+    ☰
+  </button>
+
+  {open && (
+    <div className="absolute z-10 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg w-72 p-4">
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Tipo</label>
+        <select
+          className="w-full mt-1 block border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+          value={filtros.tipo}
+          onChange={(e) => handleSelect('tipo', e.target.value)}
+        >
+          <option value="">-- Seleccionar --</option>
+          {opciones.tipos.map((op, i) => (
+            <option key={i} value={op}>{op}</option>
+          ))}
+        </select>
       </div>
+
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Transacción</label>
+        <select
+          className="w-full mt-1 block border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+          value={filtros.transaccion}
+          onChange={(e) => handleSelect('transaccion', e.target.value)}
+        >
+          <option value="">-- Seleccionar --</option>
+          {opciones.transacciones.map((op, i) => (
+            <option key={i} value={op}>{op}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Estado</label>
+        <select
+          className="w-full mt-1 block border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+          value={filtros.estado}
+          onChange={(e) => handleSelect('estado', e.target.value)}
+        >
+          <option value="">-- Seleccionar --</option>
+          {opciones.estados.map((op, i) => (
+            <option key={i} value={op}>{op}</option>
+          ))}
+        </select>
+      </div>
+
+      <button
+        onClick={handleClear}
+        className="buttoninicio"
+      >
+        Limpiar filtros
+      </button>
+    </div>
+  )}
+</div>
+
+
+
 
       <div className="inmuebles-section">
         <div className="inmuebles-list">
